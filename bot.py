@@ -21,6 +21,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument(
     "-n", "--max-number", type=int, default=0, help="Максимальное количество сообщений"
 )
+parser.add_argument(
+    "-d", "--delay", type=int, default=0, help="Задержка в секундах после отправки каждых 100 сообщений"
+)
 args = parser.parse_args()
 
 # получаем текст сообщения из файла
@@ -49,7 +52,7 @@ chat_ids = [chat["conversation"]["peer"]["id"] for chat in chats]
 
 # рассылка
 print("Рассылка...")
-ok.mailing(chat_ids, text)
+ok.mailing(chat_ids, text, delay=args.delay)
 
 # progressbar = tqdm(chats)
 # progressbar.set_description("Рассылка")
