@@ -3,7 +3,6 @@ from datetime import datetime
 import argparse
 
 import dotenv
-from tqdm import tqdm
 
 from api import Api, IncorrectTokenException
 
