@@ -68,7 +68,7 @@ class Api:
         while True:
             # формируем список получателей до 100 шт.
             peer_ids = ",".join(
-                [str(user_id) for user_id in user_ids[offset : offset + 100]]
+                [str(user_id) for user_id in user_ids[offset: offset + 100]]
             )
 
             # формируем уникальный ID сообщения
