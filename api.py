@@ -74,7 +74,7 @@ class Api:
             # формируем уникальный ID сообщения
             random_id = random.randint(1_000_000_000, 9_999_999_999)
 
-            # отправляем сообщение вышеуказанном получателям
+            # отправляем сообщение вышеуказанным получателям
             self._query(
                 "messages.send",
                 params={"peer_ids": peer_ids, "message": text, "random_id": random_id},
