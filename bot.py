@@ -54,14 +54,6 @@ chat_ids = [chat["conversation"]["peer"]["id"] for chat in chats]
 print("Рассылка...")
 ok.mailing(chat_ids, text, delay=args.delay)
 
-# progressbar = tqdm(chats)
-# progressbar.set_description("Рассылка")
-
-# for chat in progressbar:
-#     chat_id = chat["chat_id"]
-#     progressbar.set_postfix(chat_id=chat_id)
-#     ok.send_message(chat_id, text)
-
 # засекаем время
 d2 = datetime.now()
 dd = (d2 - d1).total_seconds()
