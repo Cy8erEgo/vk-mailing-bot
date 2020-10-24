@@ -21,7 +21,11 @@ parser.add_argument(
     "-n", "--max-number", type=int, default=0, help="Максимальное количество сообщений"
 )
 parser.add_argument(
-    "-d", "--delay", type=int, default=0, help="Задержка в секундах после отправки каждых 100 сообщений"
+    "-d",
+    "--delay",
+    type=int,
+    default=0,
+    help="Задержка в секундах после отправки каждых 100 сообщений",
 )
 args = parser.parse_args()
 
