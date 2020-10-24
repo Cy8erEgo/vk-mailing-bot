@@ -48,7 +48,9 @@ class Api:
                 count = 200
 
             # получение списка чатов
-            response = self._query("messages.getConversations", {"count": count, "offset": offset})
+            response = self._query(
+                "messages.getConversations", {"count": count, "offset": offset}
+            )
             chats_portion = response["response"]["items"]
             chats.extend(chats_portion)
 
@@ -65,13 +67,18 @@ class Api:
 
         while True:
             # формируем список получателей до 100 шт.
-            peer_ids = ",".join([str(user_id) for user_id in user_ids[offset:offset + 100]])
+            peer_ids = ",".join(
+                [str(user_id) for user_id in user_ids[offset : offset + 100]]
+            )
 
             # формируем уникальный ID сообщения
             random_id = random.randint(1_000_000_000, 9_999_999_999)
 
             # отправляем сообщение вышеуказанном получателям
-            self._query("messages.send", params={"peer_ids": peer_ids, "message": text, "random_id": random_id})
+            self._query(
+                "messages.send",
+                params={"peer_ids": peer_ids, "message": text, "random_id": random_id},
+            )
 
             offset += 100
 
