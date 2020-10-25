@@ -18,19 +18,27 @@ class Api:
     def __init__(self, token: str):
         self._token = token
 
-    def _query(self, method: str, params: dict = None) -> dict:
-        url = "{}{}".format(_BASE_URL, method)
+    def _query(self, endpoint: str, params: dict = None, data: dict = None, method: str = "GET") -> dict:
+        url = "{}{}".format(_BASE_URL, endpoint)
         if not params:
             params = {}
         params["access_token"] = self._token
         params["v"] = _API_VERSION
 
-        response = requests.get(url, params=params)
+        if method == "GET":
+            response = requests.get(url, params=params)
+        elif method == "POST":
+            response = requests.post(url, data=data, params=params)
+        else:
+            raise ValueError("Incorrect method passed")
+
         json_ = response.json()
 
-        if "error" in json_ and json_["error"]["error_code"] == 5:
-            raise IncorrectTokenException
-
+        if "error" in json_:
+            if json_["error"]["error_code"] == 5:
+                raise IncorrectTokenException
+            else:
+                raise RuntimeError(json_["error"]["error_msg"])
         return json_
 
     def get_chats(self, max_count: int = 0) -> list:
@@ -77,7 +85,8 @@ class Api:
             # отправляем сообщение вышеуказанным получателям
             self._query(
                 "messages.send",
-                params={"peer_ids": peer_ids, "message": text, "random_id": random_id},
+                data={"peer_ids": peer_ids, "message": text, "random_id": random_id},
+                method="POST"
             )
 
             offset += 100
